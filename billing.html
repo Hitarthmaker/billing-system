@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Billing</h2>
+
+<form method="POST" class="mb-4">
+  <div class="row">
+    <div class="col-md-5">
+      <select name="product_id" class="form-select" required>
+        <option value="">Select Product</option>
+        {% for p in products %}
+          <option value="{{ p.id }}">{{ p.name }} - ₹{{ p.price }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <input type="number" name="quantity" class="form-control" placeholder="Quantity" required min="1">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-success w-100">Add to Bill</button>
+    </div>
+  </div>
+</form>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th><th>Product</th><th>Quantity</th><th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for bill in bills %}
+    <tr>
+      <td>{{ bill.id }}</td>
+      <td>{{ bill.product_name }}</td>
+      <td>{{ bill.quantity }}</td>
+      <td>₹{{ bill.total }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
